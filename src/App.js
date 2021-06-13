@@ -1,25 +1,43 @@
-import logo from './logo.svg';
 import './App.css';
+import { GlobalStyle, Title, Description, Location,Timeline } from "./styles";
+import { ThemeProvider } from "styled-components";
+import timelineElements  from './data'
+import {
+  VerticalTimeline,
+  VerticalTimelineElement,
+} from "react-vertical-timeline-component";
 
+import "react-vertical-timeline-component/style.min.css";
+
+const theme = {
+  mainColor:"#4d516d",
+  backgroundColor:"lavender", 
+};
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+  return(
+    <div>
+       <ThemeProvider theme ={theme}>
+        <GlobalStyle />
+      <div>
+        <Timeline>My Timeline</Timeline>
+      <VerticalTimeline>
+        {timelineElements.map((element) => {
+          return(
+            <VerticalTimelineElement
+              key={element.key}
+              >
+                <Title>{element.title}</Title>
+                <Location>{element.location}</Location>
+                <Description>{element.description}</Description>
+            </VerticalTimelineElement>
+          );
+        })}
+      </VerticalTimeline>
+      </div>
+      </ThemeProvider>  
     </div>
   );
+ 
 }
 
 export default App;
